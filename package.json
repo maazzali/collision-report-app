@@ -11,6 +11,9 @@
     "hmr": "ng serve --configuration hmr"
   },
   "private": true,
+  "engines": {
+    "node": "8.11.3"
+  },
   "dependencies": {
     "@angular/animations": "^6.0.3",
     "@angular/common": "^6.0.3",
