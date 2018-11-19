@@ -5,15 +5,15 @@
 }
 
 /deep/ #line-chart {
-  .axis {
-    font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
 
+  .axis {
     &.y {
       .tick:nth-of-type(even) text {
         display: none;
       }
       text {
-        transform: translate(20px, -10px);
+        transform: translate(15px, -5px);
       }
     }
 
@@ -30,11 +30,6 @@
     }
 
     .tick {
-      text {
-        fill: #B2BEC4;
-        font-size: 0.857rem;
-      }
-
       line {
         stroke: rgba(#979797, 0.15) !important;
       }
@@ -45,5 +40,11 @@
     stroke: #4b85be;
     stroke-width: 2px;
     fill: none;
+  }
+
+  .label-text, .tick > text {
+    fill: #607587;
+    font-size: 10px;
+    font-weight: 600;
   }
 }

@@ -27,7 +27,7 @@ interface DataPoint {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LineChartComponent implements OnInit, AfterViewInit {
-  @Input('data') public data: any = [];
+  @Input('data') public data: DataPoint[] = [];
   private el: HTMLElement;
 
   constructor(elRef: ElementRef, private cdr: ChangeDetectorRef) {
@@ -102,7 +102,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
 
     graphContainer.append('g')
       .append('text')
-      .attr('class', 'y-axis-label')
+      .attr('class', 'y-axis-label label-text')
       .attr('transform', 'rotate(-90)')
       .attr('y', 0)
       .attr('x', -(graphHeight / 2))
