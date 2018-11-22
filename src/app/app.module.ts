@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { LineChartModule } from './misc/line-chart.module';
+import { CollisionReportSliderModule } from './misc/collision-report-slider.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { LineChartModule } from './misc/line-chart.module';
   ],
   imports: [
     BrowserModule,
-    LineChartModule
+    LineChartModule,
+    CollisionReportSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
