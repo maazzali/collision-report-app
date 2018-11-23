@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, Output, OnInit, OnChanges, OnDestroy, NgZone, Inject } from '@angular/core';
+import { Directive, EventEmitter, Input, Output, OnInit, OnDestroy, NgZone, Inject } from '@angular/core';
 import { MapComponent } from './map.component';
 import { gmapsLoadPromise } from '../lib/google-maps';
 
@@ -8,10 +8,10 @@ const ICONS = {
     scaledSize: {width: 24, height: 24},
     anchor: {x: 12, y: 12},
   },
-}
+};
 
 @Directive({
-  selector: 'map-marker',
+  selector: 'map-marker'
 })
 export class MapMarkerDirective implements OnInit, OnDestroy {
   @Input() public lat: number;
@@ -24,10 +24,9 @@ export class MapMarkerDirective implements OnInit, OnDestroy {
   @Input() public bearing: number;
   @Output() public onClick = new EventEmitter();
   @Output() public onDblClick = new EventEmitter();
-  private gmaps;
-  private id;
+  private gmaps: any;
+  private id: any;
   private markerObj: google.maps.Marker;
-  private imageName: string;
   private createMarkerPromise = new Promise((resolve, reject) => reject());
 
   constructor(@Inject(MapComponent) private map: MapComponent, private ngZone: NgZone) {
@@ -76,7 +75,9 @@ export class MapMarkerDirective implements OnInit, OnDestroy {
   }
 
   private remove() {
-    if (!this.id) return;
+    if (!this.id) {
+      return;
+    }
     this.gmaps.event.clearInstanceListeners(this.markerObj);
     this.map.removeMarker(this.id);
   }

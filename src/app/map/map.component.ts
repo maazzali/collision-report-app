@@ -60,7 +60,9 @@ export class MapComponent implements OnInit {
       .then(() => {
         const bounds = new google.maps.LatLngBounds();
         (Object as any).values(this.markers).forEach(m => {
-          if (m.visible) bounds.extend(m.getPosition());
+          if (m.visible) {
+            bounds.extend(m.getPosition());
+          }
         });
         if (!bounds.isEmpty()) {
           this.map.setCenter(bounds.getCenter());
@@ -98,7 +100,9 @@ export class MapComponent implements OnInit {
     const id = this.createId('marker');
     this.markers[id] = marker;
     marker.setMap(this.map);
-    if (options.autoZoom) this.updateViewport();
+    if (options.autoZoom) {
+      this.updateViewport();
+    }
     return id;
   }
 
@@ -111,7 +115,9 @@ export class MapComponent implements OnInit {
     const id = this.createId('polyline');
     this.polylines[id] = polyline;
     polyline.setMap(this.map);
-    if (options.autoZoom) this.updateViewport();
+    if (options.autoZoom) {
+      this.updateViewport();
+    }
     return id;
   }
 

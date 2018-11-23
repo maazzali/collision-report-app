@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   public details: any = {};
+
   constructor() {
     this.details.lat = 0;
     this.details.lng = 0;
@@ -42,5 +43,5 @@ export class MainComponent implements OnInit {
       , {lat: 33.6706416, lng: 73.0583982, bearing: 148.62, locatedAtUserTZ: 'Thu Dec 14 2017 05:53:53 GMT+0500 (Pakistan Standard Time)'}
       , {lat: 33.6703978, lng: 73.0585801, bearing: 147.99, locatedAtUserTZ: 'Thu Dec 14 2017 05:53:55 GMT+0500 (Pakistan Standard Time)'}
     ];
-
+  }
 }
