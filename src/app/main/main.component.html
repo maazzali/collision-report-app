@@ -1,6 +1,5 @@
-<div class="container" style="width: 800px; height: 800px;">
+<div class="map-container">
   <app-map>
-
     <map-marker [lat]="details.lat" [lng]="details.lng"
                 [title]="details.title" [type]="details.title"
                 [zIndex]="100"
@@ -11,3 +10,7 @@
                   zIndex="1" color="#5daa12" width="8"></map-polyline>
   </app-map>
 </div>
+
+<app-line-chart [data]="data1"></app-line-chart>
+
+<app-collision-report-slider [data]="data" [startTime]="data[6]" [endTime]="data[16]"></app-collision-report-slider>

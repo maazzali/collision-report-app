@@ -1,0 +1,75 @@
+:host {
+  display: block;
+  height: 60px;
+  width: 480px;
+}
+
+#report-slider {
+  height: 100%;
+  width: 100%;
+
+  /deep/ .slider-wrapper {
+    .x-axis-text {
+      text {
+        fill: #607587;
+        font-family: "Open Sans", sans-serif;
+        font-size: 10px;
+        font-weight: 600;
+      }
+    }
+
+    .ticks {
+      font: 10px sans-serif;
+
+      path.domain {
+        stroke: transparent;
+      }
+
+      .tick > line {
+        stroke: #bec8d1;
+      }
+
+      .tick > text {
+        fill: #607587;
+        font-size: 10px;
+        font-weight: 600;
+        font-family: "Open Sans", sans-serif;
+      }
+    }
+
+    .track,
+    .track-inset,
+    .track-overlay {
+      stroke-linecap: round;
+    }
+
+    .track {
+      stroke: #bec8d1;
+      stroke-width: 1px;
+    }
+
+    .track-inset {
+      stroke: transparent;
+      stroke-width: 1px;
+    }
+
+    .track-overlay {
+      pointer-events: stroke;
+      stroke-width: 50px;
+      stroke: transparent;
+      cursor: pointer;
+    }
+
+    .handle {
+      fill: #fff;
+      stroke-opacity: 0.5;
+      stroke-width: 1.25px;
+    }
+
+    .highlight-line {
+      stroke: #77b537;
+      stroke-width: 2px;
+      stroke-linecap: round;
+    }
+  }
+}
