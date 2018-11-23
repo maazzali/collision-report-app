@@ -4,7 +4,7 @@ import { gmapsLoadPromise } from '../lib/google-maps';
 
 const ICONS = {
   collision : {
-    url: require('../../assets/event-collision.png'),
+    url: require('../../assets/images/event-collision.png'),
     scaledSize: {width: 24, height: 24},
     anchor: {x: 12, y: 12},
   },

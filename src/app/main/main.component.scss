@@ -2,3 +2,62 @@
   width: 500px;
   height: 500px;
 }
+
+header {
+  display: flex;
+  padding: 40px 40px;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid #EFF1F3;;
+
+  .logo-group {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    height: 40px;
+    width: 245px;
+    margin: 0 40px 0 0;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .heading {
+    font-family: "Open Sans";
+    padding-left: 40px;
+    border-left: 1px solid #BEC8D1;;
+
+    .main-heading {
+      margin: 0;
+      color: #262F36;
+      font-size: 36px;
+      font-weight: 300;
+      line-height: 38px;
+    }
+
+    .sub-heading {
+      margin: 18px 0 0;
+      color: #607587;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+  }
+
+  .report-details {
+    h6 {
+      margin: 0;
+      color: #4D5E6C;
+      font-family: "Open Sans";
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.83px;
+      line-height: 20px;
+      text-align: right;
+    }
+  }
+
+}
