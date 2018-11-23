@@ -1,0 +1,29 @@
+$marker-driver-size: 33px;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+:host /deep/ {
+  .marker-driver,
+  .marker-selected-driver {
+    background: #428CD1;
+    border: 2px solid white;
+    border-radius: $marker-driver-size;
+    box-shadow: 0 0 6px #4986C1;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: $marker-driver-size;
+    height: $marker-driver-size;
+    transform: translate3d(0,0,0);
+  }
+
+  .marker-selected-driver {
+    background: white;
+    color: #428CD1;
+  }
+}
