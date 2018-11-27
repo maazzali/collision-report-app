@@ -6,6 +6,8 @@ import { LineChartModule } from './slider-chart/line-chart.module';
 import { MainComponent } from './main/main.component';
 import { MapModule } from './map/map.module';
 import { CollisionReportSliderModule } from './slider-chart/collision-report-slider.module';
+import { MainService } from './main/main.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,11 +16,12 @@ import { CollisionReportSliderModule } from './slider-chart/collision-report-sli
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     LineChartModule,
     MapModule,
     CollisionReportSliderModule
   ],
-  providers: [],
+  providers: [MainService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -88,7 +88,6 @@ section.report {
 
   > article {
     padding: 20px 40px;
-    flex: 1;
 
     &.border {
       border: 1px solid #BEC8D1;
@@ -98,6 +97,8 @@ section.report {
     }
 
     &.left {
+      flex-grow: 3;
+
       .map-graph-container {
         border: 1px solid #BEC8D1;
         border-radius: 4px;
@@ -105,6 +106,9 @@ section.report {
     }
 
     &.right {
+      padding-right: 0;
+      flex-grow: 1;
+
       > .info-container {
         padding-bottom: 40px;
 

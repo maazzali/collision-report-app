@@ -1,4 +1,4 @@
-<main>
+<main *ngIf="details">
   <header class="container">
     <div class="logo-group">
       <div class="logo">
@@ -6,7 +6,7 @@
       </div>
       <div class="heading">
         <h1 class="main-heading">Collision Report</h1>
-        <h3 class="sub-heading">Mongoose Trucking & Hotshot</h3>
+        <h3 class="sub-heading">{{details.companyDetails.name}}</h3>
       </div>
     </div>
 
@@ -62,19 +62,15 @@
         <ul class="info">
           <li>
             <div class="left">Name</div>
-            <div class="right">Mongoose Trucking & Hot Shot LLC</div>
+            <div class="right">{{details.companyDetails.name}}</div>
           </li>
           <li>
             <div class="left">Address</div>
-            <div class="right">302 2nd Street NE, Parshall, ND 58770</div>
+            <div class="right">{{details.companyDetails.address}}</div>
           </li>
           <li>
             <div class="left">DOT Number</div>
-            <div class="right">2206404</div>
-          </li>
-          <li>
-            <div class="left">Street Address</div>
-            <div class="right">134 Street,<br> City, ST 53153</div>
+            <div class="right">{{details.companyDetails.dotNo}}</div>
           </li>
         </ul>
 
@@ -102,15 +98,15 @@
         <ul class="info">
           <li>
             <div class="left">Name</div>
-            <div class="right">Danny Joubert</div>
+            <div class="right">{{details.driverDetails.name}}</div>
           </li>
           <li>
             <div class="left">Email</div>
-            <div class="right">cjjaros@yahoo.com</div>
+            <div class="right">{{details.driverDetails.email}}</div>
           </li>
           <li>
             <div class="left">Phone Number</div>
-            <div class="right">(505) 288-6078</div>
+            <div class="right">{{details.driverDetails.phone}}</div>
           </li>
         </ul>
 
@@ -119,11 +115,11 @@
         <ul class="info">
           <li>
             <div class="left">License Number</div>
-            <div class="right">JAR-76-3102</div>
+            <div class="right">{{details.driverDetails.licenseNo}}</div>
           </li>
           <li>
             <div class="left">State</div>
-            <div class="right">CA</div>
+            <div class="right">{{details.driverDetails.state}}</div>
           </li>
         </ul>
       </div>
@@ -134,27 +130,27 @@
         <ul class="info">
           <li>
             <div class="left">Make</div>
-            <div class="right">Freightliner</div>
+            <div class="right">{{details.vehicleDetails.make}}</div>
           </li>
           <li>
             <div class="left">Model</div>
-            <div class="right">Evolution</div>
+            <div class="right">{{details.vehicleDetails.model}}</div>
           </li>
           <li>
             <div class="left">Year</div>
-            <div class="right">2016</div>
+            <div class="right">{{details.vehicleDetails.year}}</div>
           </li>
           <li>
             <div class="left">VIN</div>
-            <div class="right">3AKJGLD58GSGT4298</div>
+            <div class="right">{{details.vehicleDetails.vin}}</div>
           </li>
           <li>
             <div class="left">License Plate Number</div>
-            <div class="right">76AS6F</div>
+            <div class="right">{{details.vehicleDetails.licensePlate}}</div>
           </li>
           <li>
             <div class="left">State</div>
-            <div class="right">MO</div>
+            <div class="right">{{details.vehicleDetails.state}}</div>
           </li>
         </ul>
       </div>
