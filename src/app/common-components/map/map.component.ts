@@ -10,7 +10,7 @@ import {
   Output,
   OnInit, Input,
 } from '@angular/core';
-import { createMap, gmapsLoadPromise } from '../lib/google-maps';
+import { createMap, gmapsLoadPromise } from '../../lib/google-maps';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,7 +38,6 @@ export class MapComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log(this.mapType);
     this.createMapPromise = gmapsLoadPromise
       .then(gmaps => {
         this.gmaps = gmaps;

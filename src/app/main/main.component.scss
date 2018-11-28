@@ -1,6 +1,5 @@
 .container {
-  max-width: 1110px;
-  margin: 0 auto;
+  width: auto;
 }
 
 hr {
@@ -82,32 +81,123 @@ section.report {
   }
 
   > article {
-    padding: 20px 40px;
 
-    &.border {
+    > .section-wrapper {
       border: 1px solid #BEC8D1;
       border-radius: 4px;
       background-color: #FFFFFF;
       box-shadow: 0 2px 4px 0 rgba(38, 47, 54, 0.1);
+
+      app-collision-report-slider {
+        border-bottom: 1px solid #BEC8D1;
+      }
+    }
+
+    .map-graph-container {
+      border: 1px solid #BEC8D1;
+      border-radius: 4px;
+      margin-bottom: 40px;
+    }
+
+    .line-chart-meta {
+      padding: 7px 15px;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #BEC8D1;
+
+      .text {
+        color: #607587;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 20px;
+      }
+
+      .driving, .speed {
+        margin-left: 20px;
+        padding-left: 10px;
+        position: relative;
+
+        &:before {
+          position: absolute;
+          left: -7px;
+          top: calc(50% - 1px);
+          border-radius: 3px;
+          content: '';
+          height: 3px;
+          width: 9px;
+          background: #77b537;
+        }
+      }
+
+      .left {
+        display: flex;
+        padding-right: 20px;
+        margin-right: 5px;
+        position: relative;
+
+        &:after {
+          position: absolute;
+          top: 0;
+          right: 0;
+          content: '';
+          height: 100%;
+          width: 1px;
+          background: #BEC8D1;
+        }
+
+        .collision {
+          display: inline-flex;
+        }
+        .driving:before {
+          background: #77b537;
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+
+        .speed:before {
+          background: #4b85be;
+        }
+      }
+    }
+
+    .satellite-map {
+      app-map {
+        border: 1px solid #BEC8D1;
+        border-radius: 4px;
+      }
+
+      .text {
+        color: #607587;
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 20px;
+      }
     }
 
     &.left {
-      flex-grow: 3;
-      .map-graph-container {
+      width: 70%;
+      padding: 20px 20px 20px 0;
+      .section-wrapper {
+        padding: 20px 40px;
+        margin-left: 40px;
         border: 1px solid #BEC8D1;
         border-radius: 4px;
       }
     }
 
     &.right {
-      padding-right: 0;
-      flex-grow: 1;
+      padding: 20px 0 20px 20px;
+      width: 30%;
 
       > .info-container {
-        padding-bottom: 40px;
+        padding-right: 40px;
 
         &:not(:first-of-type) {
-          padding: 40px 0;
+          padding-top: 40px;
+          padding-bottom: 40px;
         }
 
         &:not(:last-of-type) {

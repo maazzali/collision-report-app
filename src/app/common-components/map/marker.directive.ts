@@ -1,15 +1,15 @@
 import { Directive, EventEmitter, Input, Output, OnInit, OnDestroy, NgZone, Inject } from '@angular/core';
 import { MapComponent } from './map.component';
-import { gmapsLoadPromise } from '../lib/google-maps';
+import { gmapsLoadPromise } from '../../lib/google-maps';
 
 const ICONS = {
   collision : {
-    url: require('../../assets/images/event-collision.png'),
+    url: require('../../../assets/images/event-collision.png'),
     scaledSize: {width: 24, height: 24},
     anchor: {x: 12, y: 12},
   },
   collision_bg : {
-    url: require('../../assets/images/event-collision.png'),
+    url: require('../../../assets/images/event-collision.png'),
     scaledSize: {width: 48, height: 48},
     anchor: {x: 24, y: 24},
   },

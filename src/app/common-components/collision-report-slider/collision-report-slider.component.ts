@@ -25,7 +25,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize')
   public onResize() {
-    select(this.el.querySelector('svg')).selectAll('*').remove();
+    select(this.el.querySelector('.slider-container')).selectAll('*').remove();
     this.drawSlider();
   }
 
@@ -33,7 +33,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    this.drawSlider();
+    setTimeout(() => this.drawSlider(), 500);
   }
 
   private drawSlider() {
@@ -44,17 +44,16 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
     const height: number = this.el.clientHeight;
     const width: number = this.el.clientWidth;
     const handleRadius = 9;
-    const padding = 25;
-    const graphMargin: any = { top: 0, right: padding, bottom: 0, left: padding };
-    const graphWidth: number = width - graphMargin.left - graphMargin.right;
+    const graphMargin: any = { top: 0, right: 25, bottom: 0, left: 25 };
+    const graphWidth: number = width - graphMargin.left - graphMargin.right - 50;
     const graphHeight: number = height - graphMargin.top - graphMargin.bottom;
 
-    const timeList = this.data;
+    const timeList: Date[] = this.data;
     const timeMin: Date = new Date(Math.min.apply(null, timeList));
     const timeMax: Date = new Date(Math.max.apply(null, timeList));
     const timeDelta = timeMax.getTime() - timeMin.getTime();
     const timeRange: Date[] = range(timeMin.getTime(), timeMax.getTime(), (timeDelta) / 5).map((t) => (new Date(t)));
-    // TODO:: lodash range is missing the last value because it cannot accomodate it.
+    // TODO:: lodash range is missing the last value because it cannot accommodate it.
     // TODO:: Using this hack
     timeRange.push(timeList[timeList.length - 1]);
 
@@ -83,17 +82,15 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
       .tickSizeInner(-5)
     ;
 
-    const svg = select(this.el.querySelector('svg'))
-      .attr('width', width + graphMargin.left + graphMargin.right)
-      .attr('height', height + graphMargin.top + graphMargin.bottom)
+    const sliderContainer = select(this.el.querySelector('.slider-container'))
     ;
 
-    const sliderContainer = svg.append('g')
+    const sliderWrapper = sliderContainer.append('g')
       .attr('class', 'slider-wrapper')
       .attr('transform', `translate(${graphMargin.left},${graphMargin.top})`)
     ;
 
-    sliderContainer.append('g')
+    sliderWrapper.append('g')
       .attr('class', 'x-axis-text')
       .append('text')
       .attr('transform', 'rotate(-90)')
@@ -103,7 +100,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
       .text('Location')
     ;
 
-    const slider = sliderContainer.append('g')
+    const slider = sliderWrapper.append('g')
       .attr('class', 'slider')
       .attr('transform', `translate(${graphMargin.left}, ${graphHeight / 2})`);
 

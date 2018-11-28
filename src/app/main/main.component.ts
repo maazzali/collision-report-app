@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MainService } from './main.service';
 import { combineLatest } from 'rxjs';
-import { MapComponent } from '../map/map.component';
+import { MapComponent } from '../common-components/map/map.component';
 
 @Component({
   selector: 'app-main',
@@ -26,22 +26,30 @@ export class MainComponent implements OnInit {
     const vehicleData = this.mainService.getJSON('vehicle');
     const locationData = this.mainService.getJSON('location');
     const eventData = this.mainService.getJSON('event');
-    const combinedData =  combineLatest(companyData, driverData, vehicleData, locationData, eventData,
+    const combinedData = combineLatest(companyData, driverData, vehicleData, locationData, eventData,
       (company, driver, vehicle, location, event) => {
-      return {
-        driverDetails: driver,
-        vehicleDetails: vehicle,
-        companyDetails: company,
-        locationDetails: location,
-        eventDetails: event,
-      };
-    });
+        return {
+          driverDetails: driver,
+          vehicleDetails: vehicle,
+          companyDetails: company,
+          locationDetails: location,
+          eventDetails: event,
+        };
+      });
     combinedData.subscribe(data => {
-      console.log(data);
-      this.details = data;
-      this.details.lat = 0;
-      this.details.lng = 0;
-      this.details.title = 'collision';
+      // TODO:: prepost value is missing in the event
+      const prepost = 10; // seconds
+      const eventTime = new Date(data.eventDetails.timestamp);
+      this.details = {
+        ...data, ...{
+          lat: 0,
+          lng: 0,
+          title: 'collision',
+          eventStart: (new Date(eventTime.setSeconds(eventTime.getSeconds() - prepost))),
+          eventEnd: (new Date(eventTime.setSeconds(eventTime.getSeconds() + prepost)))
+        }
+      };
+      console.log(this.details);
     });
   }
 }

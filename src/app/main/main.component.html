@@ -20,25 +20,45 @@
   <hr>
 
   <section class="container report">
-    <article class="left border">
-      <h1 class="section-heading">Telematics - Vehicle location and speed</h1>
-      <h2 class="section-subheading">Information for the hour leading up to the event.</h2>
-      <div class="map-graph-container">
-        <app-map mapType="roadmap">
-          <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
-                      type="collision" [zIndex]="100" [autoZoom]="true">
-          </map-marker>
+    <article class="left">
+      <div class="section-wrapper" *ngIf="details">
+        <h1 class="section-heading">Telematics - Vehicle location and speed</h1>
+        <h2 class="section-subheading">Information for the hour leading up to the event.</h2>
+        <div class="map-graph-container">
+          <app-map mapType="roadmap">
+            <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
+                        type="collision" [zIndex]="100" [autoZoom]="true">
+            </map-marker>
 
-          <map-polyline [coords]="details.locationDetails" [autoZoom]="true"
-                        zIndex="1" color="#5daa12" width="8"></map-polyline>
-        </app-map>
-        <app-collision-report-slider [data]="data" [startTime]="data[6]" [endTime]="data[16]"></app-collision-report-slider>
-        <app-line-chart [data]="data1"></app-line-chart>
-        <app-map mapType="satellite">
-          <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
-                      type="collision_bg" [zIndex]="100" [autoZoom]="true">
-          </map-marker>
-        </app-map>
+            <map-polyline [coords]="details.locationDetails" [autoZoom]="true"
+                          zIndex="1" color="#5daa12" width="8"></map-polyline>
+          </app-map>
+          <app-collision-report-slider [data]="data" [startTime]="data[6]" [endTime]="data[16]"></app-collision-report-slider>
+          <app-line-chart [data]="data1"></app-line-chart>
+
+          <div class="line-chart-meta">
+            <div class="left">
+              <span class="collision">
+                <img src="assets/images/event-collision-timeline.svg" alt="">
+              <span class="text">Collision</span>
+              </span>
+              <span class="driving text">Driving</span>
+            </div>
+            <div class="right">
+              <span class="speed text">Speed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="satellite-map">
+          <app-map mapType="satellite">
+            <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
+                        type="collision_bg" [zIndex]="100" [autoZoom]="true">
+            </map-marker>
+          </app-map>
+
+          <div class="text">Satellite view</div>
+        </div>
       </div>
 
     </article>

@@ -1,6 +1,6 @@
 import { Directive, Inject, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MapComponent } from './map.component';
-import { gmapsLoadPromise } from '../lib/google-maps';
+import { gmapsLoadPromise } from '../../lib/google-maps';
 
 @Directive({
   selector: 'map-polyline',
