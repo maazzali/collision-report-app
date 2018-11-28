@@ -23,12 +23,22 @@
     <article class="left border">
       <h1 class="section-heading">Telematics - Vehicle location and speed</h1>
       <h2 class="section-subheading">Information for the hour leading up to the event.</h2>
-
       <div class="map-graph-container">
-        <!--<app-line-chart [data]="data1"></app-line-chart>-->
+        <app-map mapType="roadmap">
+          <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
+                      type="collision" [zIndex]="100" [autoZoom]="true">
+          </map-marker>
 
-        <!--<app-collision-report-slider [data]="data" [startTime]="data[6]"-->
-                                     <!--[endTime]="data[16]"></app-collision-report-slider>-->
+          <map-polyline [coords]="details.locationDetails" [autoZoom]="true"
+                        zIndex="1" color="#5daa12" width="8"></map-polyline>
+        </app-map>
+        <app-collision-report-slider [data]="data" [startTime]="data[6]" [endTime]="data[16]"></app-collision-report-slider>
+        <app-line-chart [data]="data1"></app-line-chart>
+        <app-map mapType="satellite">
+          <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
+                      type="collision_bg" [zIndex]="100" [autoZoom]="true">
+          </map-marker>
+        </app-map>
       </div>
 
     </article>
@@ -39,7 +49,7 @@
         <ul class="info">
           <li>
             <div class="left">Timestamp</div>
-            <div class="right">Feb 6, 2018, 2:13 PM</div>
+            <div class="right">{{details.eventDetails.timestamp}}</div>
           </li>
           <li>
             <div class="left">Time Zone (from GPS)</div>
@@ -47,11 +57,11 @@
           </li>
           <li>
             <div class="left">GPS Co-ordinates</div>
-            <div class="right">-73, 114</div>
+            <div class="right">{{details.eventDetails.lat}}, {{details.eventDetails.lng}}</div>
           </li>
           <li>
             <div class="left">Street Address</div>
-            <div class="right">134 Street,<br> City, ST 53153</div>
+            <div class="right">{{details.eventDetails.address}}</div>
           </li>
         </ul>
       </div>

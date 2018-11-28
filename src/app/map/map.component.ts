@@ -8,7 +8,7 @@ import {
   EventEmitter,
   NgZone,
   Output,
-  OnInit,
+  OnInit, Input,
 } from '@angular/core';
 import { createMap, gmapsLoadPromise } from '../lib/google-maps';
 
@@ -21,6 +21,7 @@ import { createMap, gmapsLoadPromise } from '../lib/google-maps';
 export class MapComponent implements OnInit {
   @Output() public onClick = new EventEmitter();
   @Output() public onZoomChanged = new EventEmitter();
+  @Input() public mapType = 'roadmap';
   public createMapPromise: any;
   public markerPromiseList = [];
   public map: any;
@@ -37,6 +38,7 @@ export class MapComponent implements OnInit {
   }
 
   public ngOnInit() {
+    console.log(this.mapType);
     this.createMapPromise = gmapsLoadPromise
       .then(gmaps => {
         this.gmaps = gmaps;
@@ -44,6 +46,7 @@ export class MapComponent implements OnInit {
           center: { lat: 39.50, lng: -98.35 },
           zoom: 4,
           minZoom: 2,
+          mapTypeId: this.mapType,
           disableDefaultUI: true,
         });
       })
@@ -176,16 +179,12 @@ export class MapComponent implements OnInit {
       polyline.getPath().getArray().forEach((latLng: any) => bounds.extend(latLng));
       coordsCount += polyline.getPath().getLength();
     });
-
     if (coordsCount > 1) {
       _.forIn(markers, (m: any) => bounds.extend(m.getPosition()));
       this.map.fitBounds(bounds);
-      this.gmaps.event.addListenerOnce(this.map, 'bounds_changed', () => {
-        this.map.setZoom(this.getZoomByBounds(bounds));
-      });
     } else if (coordsCount === 1) {
       this.map.setCenter(bounds.getCenter());
-      this.map.setZoom(10);
+      this.map.setZoom(18);
     }
   }
 }

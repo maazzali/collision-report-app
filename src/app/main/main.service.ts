@@ -19,6 +19,8 @@ export class MainService {
             return this._transformVehicleData(resp);
           case 'location':
             return this._transformLocationData(resp);
+          case 'event':
+            return this._transformEventData(resp);
           default:
             return resp;
         }
@@ -68,5 +70,15 @@ export class MainService {
         bearing: obj.bearing,
       };
     });
+  }
+
+  private _transformEventData(res: any) {
+    const event = res[0];
+    return {
+      timestamp: new Date(event.timestamp).toUTCString(),
+      lat: event.lat,
+      lng: event.lon,
+      address: event.address,
+    };
   }
 }

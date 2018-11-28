@@ -8,6 +8,11 @@ const ICONS = {
     scaledSize: {width: 24, height: 24},
     anchor: {x: 12, y: 12},
   },
+  collision_bg : {
+    url: require('../../assets/images/event-collision.png'),
+    scaledSize: {width: 48, height: 48},
+    anchor: {x: 24, y: 24},
+  },
 };
 
 @Directive({
@@ -27,7 +32,7 @@ export class MapMarkerDirective implements OnInit, OnDestroy {
   private gmaps: any;
   private id: any;
   private markerObj: google.maps.Marker;
-  private createMarkerPromise = new Promise((resolve, reject) => reject());
+  private createMarkerPromise; // = new Promise((resolve, reject) => reject());
 
   constructor(@Inject(MapComponent) private map: MapComponent, private ngZone: NgZone) {
     gmapsLoadPromise
@@ -64,7 +69,7 @@ export class MapMarkerDirective implements OnInit, OnDestroy {
     };
 
     this.markerObj = new google.maps.Marker(config);
-    const promise: Promise<any> = this.setMarkerIcon('collision');
+    const promise: Promise<any> = this.setMarkerIcon(this.type);
     return promise.then(() => {
       this.ngZone.runOutsideAngular(() => this.attachEvents());
       const options = {
