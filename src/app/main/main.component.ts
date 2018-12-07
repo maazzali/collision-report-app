@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MainService } from './main.service';
 import { combineLatest } from 'rxjs';
 import { MapComponent } from '../common-components/map/map.component';
+const csv = require('csvtojson');
 
 @Component({
   selector: 'app-main',
@@ -19,37 +20,46 @@ export class MainComponent implements OnInit {
     this.data = this.data.map((d: any) => ((new Date(d.time))));
 
   }
-
+  public submitFiles (evt) {
+    console.log('in files');
+    this.initilizeReport();
+    evt.preventDefault();
+  }
   public ngOnInit() {
-    const companyData = this.mainService.getJSON('company');
-    const driverData = this.mainService.getJSON('driver');
-    const vehicleData = this.mainService.getJSON('vehicle');
-    const locationData = this.mainService.getJSON('location');
-    const eventData = this.mainService.getJSON('event');
-    const combinedData = combineLatest(companyData, driverData, vehicleData, locationData, eventData,
-      (company, driver, vehicle, location, event) => {
+  }
+
+  public initilizeReport() {
+    const basicData = this.mainService.getJSONFromCSV('basic');
+    const companyData = this.mainService.getJSONFromCSV('company');
+    const driverData = this.mainService.getJSONFromCSV('driver');
+    const vehicleData = this.mainService.getJSONFromCSV('vehicle');
+    const locationData = this.mainService.getJSONFromCSV('location');
+    const combinedData = combineLatest(basicData, companyData, driverData, vehicleData, locationData,
+      (basic, company, driver, vehicle, location) => {
         return {
+          basicDetails: basic,
           driverDetails: driver,
           vehicleDetails: vehicle,
           companyDetails: company,
           locationDetails: location,
-          eventDetails: event,
         };
       });
     combinedData.subscribe(data => {
       // TODO:: prepost value is missing in the event
       const prepost = 10; // seconds
-      const eventTime = new Date(data.eventDetails.timestamp);
+      const eventTime = data.locationDetails[0].time;
       this.details = {
         ...data, ...{
-          lat: 0,
-          lng: 0,
-          title: 'collision',
-          eventStart: (new Date(eventTime.setSeconds(eventTime.getSeconds() - prepost))),
-          eventEnd: (new Date(eventTime.setSeconds(eventTime.getSeconds() + prepost)))
+          eventDetails: {
+            lat: data.locationDetails[0].lat,
+            lng: data.locationDetails[0].lng,
+            title: 'collision',
+            eventStart: (new Date(eventTime.setSeconds(eventTime.getSeconds() - prepost))),
+            eventEnd: (new Date(eventTime.setSeconds(eventTime.getSeconds() + prepost)))
+          }
         }
       };
-      console.log(this.details);
+      console.log('DETAILS: ', this.details);
     });
   }
 }
