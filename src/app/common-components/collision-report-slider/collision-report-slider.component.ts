@@ -1,8 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import 'd3-transition';
-import { event, select } from 'd3-selection';
+import { select } from 'd3-selection';
 import { scaleTime } from 'd3-scale';
-import { drag } from 'd3-drag';
 import { axisBottom } from 'd3-axis';
 
 const range = require('lodash/range');
@@ -14,7 +13,7 @@ const range = require('lodash/range');
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
-  @Input('data') public data: Date[] = [];
+  @Input('movingStates') public movingStates: Date[] = [];
   @Input('startTime') public startTime = null;
   @Input('endTime') public endTime = null;
   private el: HTMLElement;
@@ -37,7 +36,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
   }
 
   private drawSlider() {
-    if (!this.data.length || !this.startTime || !this.endTime) {
+    if (!this.movingStates.length || !this.startTime || !this.endTime) {
       return;
     }
 
@@ -48,14 +47,11 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
     const graphWidth: number = width - graphMargin.left - graphMargin.right - 50;
     const graphHeight: number = height - graphMargin.top - graphMargin.bottom;
 
-    const timeList: Date[] = this.data;
-    const timeMin: Date = new Date(Math.min.apply(null, timeList));
-    const timeMax: Date = new Date(Math.max.apply(null, timeList));
+    const timeMin: Date = this.startTime;
+    const timeMax: Date = this.endTime;
     const timeDelta = timeMax.getTime() - timeMin.getTime();
-    const timeRange: Date[] = range(timeMin.getTime(), timeMax.getTime(), (timeDelta) / 5).map((t) => (new Date(t)));
-    // TODO:: lodash range is missing the last value because it cannot accommodate it.
-    // TODO:: Using this hack
-    timeRange.push(timeList[timeList.length - 1]);
+    const timeRange: Date[] = range(timeMin.getTime(), timeMax.getTime(), (timeDelta) / 5).map(r => (new Date(r)));
+    timeRange.push(timeMax);
 
     const xRange = scaleTime()
       .domain([timeMin, timeMax])
@@ -110,23 +106,19 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
       .attr('x2', xRange.range()[1])
     ;
 
-    slider.append('line')
-      .attr('class', 'highlight-line')
-      .attr('x1', xRange(this.startTime.getTime()))
-      .attr('y1', 0)
-      .attr('x2', xRange(this.endTime.getTime()))
-      .attr('y2', 0)
-    ;
+    this.movingStates.forEach((pointTime) => {
+      slider
+        .append('rect')
+        .attr('class', 'moving-state')
+        .attr('x', xRange(pointTime))
+        .attr('y', 0)
+        .attr('width', 2)
+        .attr('height', 6)
+      ;
+    });
 
     const trackInset = sliderLine.select((function () {return this.parentNode.appendChild(this.cloneNode(true)); }) as any)
       .attr('class', 'track-inset');
-
-    const trackOverlay = trackInset.select((function () {return this.parentNode.appendChild(this.cloneNode(true)); }) as any)
-      .attr('class', 'track-overlay')
-      .call(drag()
-        .on('start.interrupt', () => slider.interrupt())
-        .on('start drag', () => handleContainer
-          .attr('transform', `translate(${xRange(xRange.invert((event).x))}, 0)`)));
 
     slider.insert('g', '.track-overlay')
       .attr('class', 'ticks')
@@ -142,6 +134,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
     const handler = handleContainer.append('use')
       .attr('x', -iconWidth)
       .attr('y', -iconHeight)
+      .attr('transform', `translate(${xRange(this.endTime)}, 0)`)
       .attr('xlink:href', '#slider-ico-handle')
       .attr('r', handleRadius);
 

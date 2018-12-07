@@ -66,10 +66,9 @@
       stroke-width: 1.25px;
     }
 
-    .highlight-line {
-      stroke: #77b537;
-      stroke-width: 2px;
-      stroke-linecap: round;
+    .moving-state {
+      fill: #77b537;
+      transform: translateY(-3px);
     }
   }
 }

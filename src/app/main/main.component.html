@@ -64,8 +64,11 @@
               <map-polyline [coords]="details.locationDetails" [autoZoom]="true"
                             zIndex="1" color="#5daa12" width="8"></map-polyline>
             </app-map>
-            <app-collision-report-slider [data]="data" [startTime]="data[6]" [endTime]="data[16]"></app-collision-report-slider>
-            <app-line-chart [data]="data1"></app-line-chart>
+            <app-collision-report-slider [movingStates]="details.eventDetails.movingStates"
+                                         [startTime]="details.eventDetails.startTime"
+                                         [endTime]="details.eventDetails.endTime">
+            </app-collision-report-slider>
+            <app-line-chart [data]="details.locationDetails"></app-line-chart>
 
             <div class="line-chart-meta">
               <div class="left">
@@ -101,6 +104,7 @@
             <li>
               <div class="left">Timestamp</div>
               <div class="right">{{details.eventDetails.timestamp}}</div>
+              <div class="right">{{details.eventDetails.endTime | date: 'MMM d, yyyy, h:m aaa'}}</div>
             </li>
             <li>
               <div class="left">Time Zone (from GPS)</div>

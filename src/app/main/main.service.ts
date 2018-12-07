@@ -104,6 +104,7 @@ export class MainService {
         lat: obj.lat,
         lng: obj.lon,
         bearing: obj.bearing,
+        state: obj.vehicle_state
       };
     });
   }
