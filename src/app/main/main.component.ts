@@ -40,7 +40,7 @@ export class MainComponent implements OnInit {
       });
 
     combinedData.subscribe((data: any) => {
-      const locationDetails = data.locationDetails.sort((a, b) => +a.time - +b.time);
+      const locationDetails = data.locationDetails;
       const endTime = locationDetails[locationDetails.length - 1].time;
       const startTime = new Date(endTime.getTime());
       startTime.setHours(endTime.getHours() - 1);

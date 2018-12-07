@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { from } from 'rxjs';
+
 const csv = require('csvtojson');
 
 @Injectable()
@@ -97,16 +98,18 @@ export class MainService {
   }
 
   private transformLocationData(res: any) {
-    return res.map(obj => {
-      return {
-        value: obj.kph,
-        time: new Date(obj.located_at),
-        lat: obj.lat,
-        lng: obj.lon,
-        bearing: obj.bearing,
-        state: obj.vehicle_state
-      };
-    });
+    return res
+      .map(obj => {
+        return {
+          value: obj.kph,
+          time: new Date(obj.located_at),
+          lat: obj.lat,
+          lng: obj.lon,
+          bearing: obj.bearing,
+          state: obj.vehicle_state
+        };
+      })
+      .sort((a, b) => +a.time - +b.time);
   }
 
   private transformBasicData(res: any) {
