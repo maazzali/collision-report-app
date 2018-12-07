@@ -112,7 +112,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
         .attr('class', 'moving-state')
         .attr('x', xRange(pointTime))
         .attr('y', 0)
-        .attr('width', 2)
+        .attr('width', 6)
         .attr('height', 6)
       ;
     });
