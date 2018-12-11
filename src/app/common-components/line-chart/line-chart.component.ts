@@ -54,7 +54,7 @@ export class LineChartComponent implements OnInit, AfterViewInit {
 
     const height: number = this.el.clientHeight;
     const width: number = this.el.clientWidth;
-    const margin: any = { top: 25, right: 25, bottom: 25, left: 25 };
+    const margin: any = { top: 30, right: 35, bottom: 30, left: 25 };
     const graphWidth: number = width - margin.left - margin.right;
     const graphHeight: number = height - margin.top - margin.bottom;
 
@@ -130,12 +130,13 @@ export class LineChartComponent implements OnInit, AfterViewInit {
     };
     graph.append('g')
       .attr('class', 'x axis')
-      .attr('transform', `translate(0, ${graphHeight})`)
+      .attr('transform', `translate(20, ${graphHeight})`)
       .call(xAxis.tickFormat((date) => formatDate(date)))
     ;
 
     graph.append('g')
       .attr('class', 'y axis')
+      .attr('transform', `translate(0,0)`)
       .call(yAxis)
     ;
 

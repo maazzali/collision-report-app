@@ -41,23 +41,31 @@ export class MainComponent implements OnInit {
 
     combinedData.subscribe((data: any) => {
       const locationDetails = data.locationDetails;
-      const endTime = locationDetails[locationDetails.length - 1].time;
+      const lat = locationDetails[0].lat;
+      const lng = locationDetails[0].lng;
+      const endTime = locationDetails[0].time;
       const startTime = new Date(endTime.getTime());
       startTime.setHours(endTime.getHours() - 1);
       const movingStates = locationDetails.filter((location) => location.state === 'moving').map(location => location.time);
-
-      this.details = {
-        ...data, ...{
-          eventDetails: {
-            lat: locationDetails[0].lat,
-            lng: locationDetails[0].lng,
-            title: 'collision',
-            endTime,
-            startTime,
-            movingStates
-          }
-        }
-      };
+      const addrData = this.mainService.getReverseGeocode(lat, lng);
+      const timezoneData = this.mainService.getReverseTimezone(lat, lng);
+      combineLatest(addrData, timezoneData)
+        .subscribe(( [address, timezone]) => {
+          this.details = {
+            ...data, ...{
+              eventDetails: {
+                title: 'collision',
+                lat,
+                lng,
+                address,
+                timezone,
+                endTime,
+                startTime,
+                movingStates
+              }
+            }
+          };
+      });
     });
   }
 }

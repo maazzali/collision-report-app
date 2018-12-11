@@ -64,6 +64,21 @@ export class MainService {
       }));
   }
 
+  public getReverseGeocode(lat, lng) {
+    return this.http.get(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+      .pipe(map( (resp: any) => {
+        return Object.keys(resp.address).filter(k => (k === 'road' || k === 'city' || k === 'state' || k === 'postcode'))
+          .map(k => resp.address[k]).join(', ');
+      }));
+  }
+
+  public getReverseTimezone(lat, lng) {
+    return this.http.get(`http://api.geonames.org/timezoneJSON?formatted=true&lat=${lat}&lng=${lng}&username=maazali&style=full`)
+      .pipe(map( (resp: any) => {
+        return `UTC ${resp.rawOffset ? resp.rawOffset : ' '}`;
+      }));
+  }
+
   private transformCompanyData(res: any) {
     const company = res[0];
     const dotIds = company.dot_ids.substring(1, company.dot_ids.indexOf('}'));
@@ -101,7 +116,7 @@ export class MainService {
     return res
       .map(obj => {
         return {
-          value: obj.kph,
+          value: (obj.kph * 0.621371), // convert kph to miles my multiplying with 0.621371
           time: new Date(obj.located_at),
           lat: obj.lat,
           lng: obj.lon,
@@ -109,7 +124,7 @@ export class MainService {
           state: obj.vehicle_state
         };
       })
-      .sort((a, b) => +a.time - +b.time);
+      .sort((a, b) => +b.time - +a.time); // descending order sort by time
   }
 
   private transformBasicData(res: any) {

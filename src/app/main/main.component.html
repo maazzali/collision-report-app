@@ -54,7 +54,7 @@
       <article class="left">
         <div class="section-wrapper" *ngIf="details">
           <h1 class="section-heading">Telematics - Vehicle location and speed</h1>
-          <h2 class="section-subheading">Information for the hour leading up to the event.</h2>
+          <p class="section-subheading">Information for the hour leading up to the event.</p>
           <div class="map-graph-container">
             <app-map mapType="roadmap">
               <map-marker [lat]="details.eventDetails.lat" [lng]="details.eventDetails.lng"
@@ -104,15 +104,15 @@
             <li>
               <div class="left">Timestamp</div>
               <div class="right">{{details.eventDetails.timestamp}}</div>
-              <div class="right">{{details.eventDetails.endTime | date: 'MMM d, yyyy, h:m aaa'}}</div>
+              <div class="right">{{details.eventDetails.endTime | date: 'MMM d, yyyy, hh:mm aaa'}}</div>
             </li>
             <li>
               <div class="left">Time Zone (from GPS)</div>
-              <div class="right">UTC -5</div>
+              <div class="right">{{details.eventDetails.timezone}}</div>
             </li>
             <li>
               <div class="left">GPS Co-ordinates</div>
-              <div class="right">{{details.eventDetails.lat}}, {{details.eventDetails.lng}}</div>
+              <div class="right">{{details.eventDetails.lat | number: '2.1-6'}} , {{details.eventDetails.lng | number: '2.1-6'}}</div>
             </li>
             <li>
               <div class="left">Street Address</div>

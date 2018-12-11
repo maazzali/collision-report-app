@@ -44,7 +44,7 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
     const width: number = this.el.clientWidth;
     const handleRadius = 9;
     const graphMargin: any = { top: 0, right: 25, bottom: 0, left: 25 };
-    const graphWidth: number = width - graphMargin.left - graphMargin.right - 50;
+    const graphWidth: number = width - graphMargin.left - graphMargin.right - 40;
     const graphHeight: number = height - graphMargin.top - graphMargin.bottom;
 
     const timeMin: Date = this.startTime;
@@ -95,10 +95,9 @@ export class CollisionReportSlideComponent implements OnInit, AfterViewInit {
       .style('text-anchor', 'middle')
       .text('Location')
     ;
-
     const slider = sliderWrapper.append('g')
       .attr('class', 'slider')
-      .attr('transform', `translate(${graphMargin.left}, ${graphHeight / 2})`);
+      .attr('transform', `translate(${graphMargin.left}, ${(graphHeight / 2) + 5})`);
 
     const sliderLine = slider.append('line')
       .attr('class', 'track')
